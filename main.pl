@@ -98,6 +98,17 @@ sub Main {
     ]);
 
     my $documents = $documents->inserted_ids;
+    foreach my $key (sort keys %{ $documents }) {
+        my $id = $documents->{$key};
+        my $findDocument = $collection->find({ _id => $documentdId });
+        my $document = $findDocument->next;
+
+        print qq(...Searching collection for document with id $id\n);
+        foreach my $key (sort keys %{ $document }) {
+            print qq(...$key: $document->{$key}\n);
+        }
+        print qq(\n);
+    }
     ###
 
 }
